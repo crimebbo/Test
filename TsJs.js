@@ -3,7 +3,7 @@
  */
 var  Test = "";
 function  add() {
-    Test = "sksksksksdfsddsf324234sfsdff";
+    Test = "나다";
     alert(Test);
 }
 
