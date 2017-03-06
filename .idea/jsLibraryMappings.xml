@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/react-15.3.2/examples/basic-commonjs" libraries="{Test/react-15.3.2/examples/basic-commonjs/node_modules}" />
+    <file url="file://$PROJECT_DIR$/webpack-master/test/browsertest" libraries="{Test/webpack-master/test/browsertest/node_modules}" />
+    <includedPredefinedLibrary name="ECMAScript 6" />
+  </component>
+</project>

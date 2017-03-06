@@ -1,0 +1,183 @@
+<!doctype html>
+<html ng-app="ctrl">
+    <head>
+        <meta charset="UTF-8"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+        <style type="text/css">
+            .ng-invalid {
+                border: 3px solid red;
+            }
+            .ng-valid {
+                border: 3px solid green;
+            }
+            .ng-pristine {
+                border-style: solid;
+            }
+            .ng-dirty {
+                border-style: dashed;
+            }
+            .apple {background-color: red; }
+            .lemon {background-color: yellow; }
+            .even {background-color: blue; }
+        </style>
+        <script>
+            var app = angular.module("ctrl", []);
+            app.controller("customerCtrl", function($scope) {
+                var customerList = [
+                    {name: 'Jane', age: 37}, {name: 'Jolie', age: 11,sex : 'girl'},
+                    {name: 'Jane', age: 17}, {name: 'Jolie', age: 1,sex : 'man'},
+                    {name: 'Jane', age: 7}, {name: 'Jolie', age: 21,sex : 'man'},
+                ];
+                var youngCustomerList = [];
+
+                angular.forEach(customerList, function(value, key) {
+                    if (value.age < 18) {
+                        youngCustomerList.push(value);
+                    }
+                });
+
+
+                var OldCustomerList = [];
+
+                angular.forEach(customerList, function(value, key) {
+                    if (value.name == 'Jolie') {
+                    	OldCustomerList.push(value);
+                    }
+                });
+                $scope.customerList = customerList;
+                $scope.youngCustomerList = youngCustomerList;
+                $scope.OldCustomerList = OldCustomerList;
+            });
+
+            app.controller("aCtrl", function($scope) {
+
+            });
+
+            app.controller('mainCtrl', function($scope) {
+                $scope.message = "";
+                $scope.eventCnt = 0;
+                $scope.handleEvt = function(message) {
+                    $scope.message = message;
+                    $scope.eventCnt++;
+                }
+            });
+        </script>
+    </head>
+    <body ng-controller="customerCtrl">
+        <div>
+            고객목록
+            <ul>
+                <li ng-repeat="customer in customerList">
+                    [{{$index + 1}}] 고객이름: {{customer.name}}, 고객나이: {{customer.age}}
+                </li>
+            </ul>
+        </div>
+        <div>
+            18세 미만 고객
+            <ul>
+                <li ng-repeat="youngCustomer in youngCustomerList">
+                    [{{$index + 1}}] 고객 이름: {{youngCustomer.name}}, 고객 나이: {{youngCustomer.age}}
+                </li>
+            </ul>
+        </div>
+         <div>
+           이름이 존 고객
+            <ul>
+                <li ng-repeat="oldCustomer in OldCustomerList">
+                    [{{$index + 1}}] 고객 이름: {{oldCustomer.name}}, 고객 나이: {{oldCustomer.age}}
+                    ,성별:{{oldCustomer.sex}}
+                </li>
+            </ul>
+        </div>
+        <form name="sampleFrm" ng-init="name = 'Black Jack'">
+            이름: <input type="text" name="name" ng-model="name" ng-maxlength="3" ng-required="true"/>
+            <span class="error" ng-show="sampleFrm.name.$error.required">필수 입력</span>
+            <br/>
+            핸드폰 번호: <input type="text" name="tel" ng-model="tel" ng-pattern="/^\d{3}-\d{3,4}-\d{4}$/">
+            <span class="error" ng-show="sampleFrm.tel.$error.pattern">000-0000-0000</span>
+            <br/>
+            <p>사용자 정보: {{name}}/{{tel}}</p>
+            <p>sampleFrm.name.$valid = {{sampleFrm.name.$valid}}</p>
+            <p>sampleFrm.name.$error = {{sampleFrm.name.$error}}</p>
+            <p>sampleFrm.tel.$valid = {{sampleFrm.tel.$valid}}</p>
+            <p>sampleFrm.tel.$error = {{sampleFrm.tel.$error}}</p>
+            <p>sampleFrm.$valid = {{sampleFrm.$valid}}</p>
+            <p>sampleFrm.$error.required = {{!!sampleFrm.$error.required}}</p>
+        </form>
+
+        <div ng-init="countryList = [{name:'인천', code: 'ICN', continent: 'Asia'},
+            {name: '도쿄', code: 'HND', continent: 'Asia'},
+            {name: '미국', code: 'en', continent: 'Namerica'}]">
+            <form name="myRouteFrm">
+                <div>
+                    출발 국가:
+                    <select ng-model="con1"
+                        ng-options="con1.name for con1 in countryList" ng-required="true">
+                        <option value="">선택하여 주세요</option>
+                    </select>
+                </div>
+                <div>
+                    경유 국가:
+                    <select ng-model="con2"
+                        ng-options="con2.name as con2.name for con2 in countryList">
+                        <option value="">선택하여 주세요</option>
+                    </select>
+                </div>
+                <div>
+                    도착 국가(대륙 그룹별):
+                    <select ng-model="arrCon" ng-options="country.name group by
+                        country.continent for country in countryList" ng-required="true">
+                        <option value="">선택하여 주세요</option>
+                    </select>
+                </div>
+            </form>
+            <div>
+                <p>출발 국가: {{con1.name}} </p>
+                <p>경유 국가: {{con2}} </p>
+                <p>도착 국가: {{arrCon.name}} </p>
+            </div>
+            <div ng-show="myRouteFrm.$invalid">
+                출발 국가와 도착 국가는 필수로 선택하여 주세요.
+            </div>
+        </div>
+        <div ng-controller="aCtrl">
+	        <form name="sample2Frm" ng-init="name = '철구'">
+	            이름: <input type="text" name="name" ng-model="name" ng-maxlength="3" ng-required="true">
+	            핸드폰 번호: <input type="text" name="tel" ng-model="tel" ng-pattern="/^\d{3}-\d{3,4}-\d{4}$">
+	      		  <p>사용자 정보: {{name}}/{{tel}}</p>
+	            <p>sample2Frm.name.$valid = {{sample2Frm.name.$valid}}</p>
+	            <p>sample2Frm.name.$error = {{sample2Frm.name.$error}}</p>
+	            <p>sample2Frm.tel.$valid = {{sample2Frm.tel.$valid}}</p>
+	            <p>sample2Frm.tel.$error = {{sample2Frm.tel.$error}}</p>
+	            <p>sample2Frm.$valid = {{sample2Frm.$valid}}</p>
+	            <p>sample2Frm.$error.required = {{!!sample2Frm.$error.required}}</p>
+	        </form>
+       </div>
+
+       <div ng-controller="mainCtrl">
+        <div>
+            <div class="box" ng-click="handleEvt('박스 클릭')">click</div>
+            <div class="box" ng-mousedown="handleEvt('박스 mousedown 이벤트')">mousedown</div>
+            <div class="box" ng-mouseenter="handleEvt('박스 mouseenter 이벤트')">mouseenter</div>
+            <div class="box" ng-mousemove="handleEvt('박스 mousemove 이벤트')">mousemove</div>
+            change: <input type="text" ng-model="inputText" ng-change="handleEvt('입력 박스의 값 변경')">
+            keydown: <input type="text" ng-model="inputText2" ng-keydown="handleEvt($event.keyCode + '키코드 눌러짐')">
+        </div>
+        <div>
+            <p>{{message}} {{eventCnt}}</p>
+        </div>
+    </div>
+    <div ng-init="fruitList = ['apple', 'banana', 'tomato', 'lemon', 'grape', 'strawberry', 'blueberry']">
+            <ul>
+                <li ng-repeat="fruit in fruitList" ng-class="'{{fruit}}'">{{fruit}}</li>
+            </ul>
+            <ul>
+            짝수는
+                <li ng-repeat="fruit in fruitList" ng-class="{'even': {{$index % 2 == 0 }}}">{{fruit}}</li>
+            </ul>
+        </div>
+
+
+
+    </body>
+</html>

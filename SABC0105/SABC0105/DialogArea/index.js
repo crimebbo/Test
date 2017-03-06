@@ -1,0 +1,1 @@
+export DelCheckDialog from './DelCheckDialog'

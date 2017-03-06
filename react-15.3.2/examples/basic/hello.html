@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Example</title>
+    <link rel="stylesheet" href="../shared/css/base.css" />
+  </head>
+  <body>
+    <div id="content"></div> 
+     <div id="container"></div> 
+    
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+     <script src="../../build/browser.min.js"></script>
+     
+    
+     <script type="text/babel"> 
+     class HelloWorld extends React.Component { 
+        propTypes: { 
+              name: React.PropTypes.string 
+        } 
+ 
+ 
+            render() { 
+                 return <h1>Hello {this.props.name}</h1> 
+             } 
+         } 
+ 		HelloWorld.defaultProps = { 
+          name: "아놔" 
+   	 }
+ 	
+  var Counter = React.createClass({
+        getInitialState: function () {
+          return { count: 0 };
+        },
+        handleClick: function () {
+          this.setState({
+            count: this.state.count + 1,
+          });
+        },
+        render: function () {
+          return (
+            <button onClick={this.handleClick}>
+              Click me! Number of clicks: {this.state.count}
+            </button>
+          );
+        }
+      });
+          
+     ReactDOM.render( 
+             <HelloWorld name="찍었다"/>, document.getElementById('content')	
+     ); 
+	 ReactDOM.render(
+        <Counter />,
+        document.getElementById('container')
+      );
+     </script> 
+
+  </body>
+</html>

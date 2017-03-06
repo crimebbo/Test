@@ -1,0 +1,1 @@
+export MSGs from './Message'
