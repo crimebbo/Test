@@ -31,7 +31,7 @@
 		gridView = new RealGridJS.GridView("realgrid");
 		gridView.setDataSource(dataProvider); 
 		
-		//두 개의 필드를 가진 배열 객체를 생성합니다.
+		//두 개의 필드를 가진 배열 객체를 생성합니다.sfdsf
 	    var fields = [
 	        { fieldName: "field1" }, {fieldName: "field2"},{fieldName: "field3"},{fieldName: "field4"}];
 	    //DataProvider의 setFields함수로 필드를 입력합니다.
